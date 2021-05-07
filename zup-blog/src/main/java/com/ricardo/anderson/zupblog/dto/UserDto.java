@@ -27,7 +27,7 @@ public class UserDto {
 	public static UserDto fromEntity(User user) {
 		return new UserDto(user.getId(), user.getName(), user.getEmail(), user.getCpf(), user.getBirthday());
 	}
-
+    
 	public UserDto() {
 		super();
 	}
@@ -40,7 +40,11 @@ public class UserDto {
 		this.cpf = cpf;
 		this.birthday = birthday;
 	}
-
+ 
+    public User toEntity() {
+    	return new User(null, this.name,this.email,this.getCpf(),this.birthday);
+    }
+	  
 	public Long getId() {
 		return id;
 	}

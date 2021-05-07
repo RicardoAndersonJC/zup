@@ -22,7 +22,7 @@ public class ZupBlogApplication {
     public CommandLineRunner run(ViaCEPClient client){
         return args -> {
             if (args.length > 0) {
-                String cep = "57046410";
+                String cep = "57018543";
  
                 Endereco endereco = client.buscaEnderecoPor(cep);
  

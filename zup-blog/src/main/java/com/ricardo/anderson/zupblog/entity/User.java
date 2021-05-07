@@ -32,6 +32,15 @@ public class User {
 		super();
 	}
 
+	public User(Long id, String name, String email, String cpf, LocalDate birthday) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.email = email;
+		this.cpf = cpf;
+		this.birthday = birthday;
+	}
+
 	public Long getId() {
 		return id;
 	}
@@ -70,6 +79,14 @@ public class User {
 
 	public void setBirthday(LocalDate birthday) {
 		this.birthday = birthday;
+	}
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address.add(address);
 	}
 
 }

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ricardo.anderson.zupblog.controller.util.UtilController;
 import com.ricardo.anderson.zupblog.dto.UserDto;
 import com.ricardo.anderson.zupblog.entity.User;
 import com.ricardo.anderson.zupblog.service.UserService;
@@ -34,31 +35,30 @@ public class UserController {
 	@GetMapping
 	public ResponseEntity<List<UserDto>> index() {
 		List<User> users = userService.findAll();
-		return ResponseEntity.ok(users.stream()
-				.map(UserDto::fromEntity)
-				.collect(Collectors.toList()));
+		return ResponseEntity.ok(users.stream().map(UserDto::fromEntity).collect(Collectors.toList()));
 	}
 
 	@GetMapping("{id}")
-	public User getUser(@PathVariable Long id) {
-
-		return userService.findById(id);
+	public ResponseEntity<UserDto> show(@PathVariable Long id) {
+		User user = userService.findById(id);
+		return ResponseEntity.ok(UserDto.fromEntity(user));
 	}
 
 	@PostMapping
-	public User postUser(@RequestBody @Validated User user) {
-		return userService.saveUser(user);
+	public ResponseEntity<UserDto> store(@RequestBody @Validated UserDto userDto) {
+		User user  = userService.save(userDto.toEntity());
+		return ResponseEntity.created(UtilController.generatedUri(user.getId())).body(UserDto.fromEntity(user));
 	}
 
 	@DeleteMapping("{id}")
-	public ResponseEntity<?> delUser(@PathVariable Long id) {
-		userService.delUser(id);
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+		userService.delete(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("{id}")
-	public User putUser(@PathVariable Long id, @RequestBody User user) {
-
-		return userService.putUser(id, user);
+	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UserDto userDto) {
+		User user = userService.update(id, userDto.toEntity());
+		return ResponseEntity.ok(UserDto.fromEntity(user));
 	}
 }

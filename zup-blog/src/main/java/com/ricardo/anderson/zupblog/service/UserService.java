@@ -28,16 +28,16 @@ public class UserService {
 		return userRepository.findById(id).get();
 	}
 
-	public User saveUser(User user) {
+	public User save(User user) {
 		return userRepository.save(user);
 	}
 
-	public void delUser(Long id) {
+	public void delete(Long id) {
 		userRepository.deleteById(id);
 	}
-	public User putUser(Long id, User userBody) {
+	public User update(Long id, User userBody) {
 		User userBd  = userRepository.findById(id).get();
 		BeanUtils.copyProperties(userBody, userBd, "id");
-		return this.saveUser(userBd);
+		return this.save(userBd);
 	}
 }
