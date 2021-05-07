@@ -22,39 +22,39 @@ import com.ricardo.anderson.zupblog.service.AddressService;
 @Validated
 public class AddressController {
 
-	public AddressService AddressService;
+	public AddressService addressService;
 
 	@Autowired
-		public AddressController(AddressService AddressService) {
+		public AddressController(AddressService addressService) {
 			super();
-			this.AddressService = AddressService;
+			this.addressService = addressService;
 		}
 
 	@GetMapping
 	public List<Address> index() {
-		return AddressService.findAll();
+		return addressService.findAll();
 	}
 
 	@GetMapping("{id}")
 	public Address getAddress(@PathVariable Long id) {
 
-		return AddressService.findById(id);
+		return addressService.findById(id);
 	}
 
 	@PostMapping
 	public Address postAddress(@RequestBody @Validated Address address) {
-		return AddressService.saveAddress(address);
+		return addressService.saveAddress(address);
 	}
 
 	@DeleteMapping("{id}")
 	public ResponseEntity<?> delAddress(@PathVariable Long id) {
-		AddressService.delUser(id);
+		addressService.delUser(id);
 		return ResponseEntity.noContent().build();
 	}
 
 	@PutMapping("{id}")
 	public Address putAdress(@PathVariable Long id, @RequestBody Address address) {
 
-		return AddressService.putAddress(id, address);
+		return addressService.putAddress(id, address);
 	}
 }
