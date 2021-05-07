@@ -11,9 +11,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.validation.constraints.NotNull;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 
 
 @Entity
@@ -25,12 +22,11 @@ public class User {
 	private String name;
 	@Column(nullable = false,unique = true)
 	private String email;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false,unique = true)
 	private String cpf;
-	@JsonFormat(pattern="yyyy-MM-dd")
 	private LocalDate birthday;
 	@OneToMany(mappedBy = "user")
-	private List<User> user = new ArrayList<>();
+	private List<Address> address = new ArrayList<>();
 
 	public User() {
 		super();

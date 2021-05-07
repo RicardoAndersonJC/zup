@@ -17,24 +17,33 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String street;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String number;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String complement;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String district;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String city;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String state;
-	@Column(nullable = false,unique = true) @NotNull
+	@Column(nullable = false) @NotNull
 	private String zipCode;
 	
 	@ManyToOne
 	@JoinColumn(name = "user")
+	@NotNull
 	private User user;
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
 
 	public Address() {
 		super();
