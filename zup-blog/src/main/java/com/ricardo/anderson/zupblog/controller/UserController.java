@@ -1,6 +1,7 @@
 package com.ricardo.anderson.zupblog.controller;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ricardo.anderson.zupblog.dto.UserDto;
 import com.ricardo.anderson.zupblog.entity.User;
 import com.ricardo.anderson.zupblog.service.UserService;
 
@@ -30,8 +32,11 @@ public class UserController {
 	}
 
 	@GetMapping
-	public List<User> index() {
-		return userService.findAll();
+	public ResponseEntity<List<UserDto>> index() {
+		List<User> users = userService.findAll();
+		return ResponseEntity.ok(users.stream()
+				.map(UserDto::fromEntity)
+				.collect(Collectors.toList()));
 	}
 
 	@GetMapping("{id}")
@@ -39,19 +44,21 @@ public class UserController {
 
 		return userService.findById(id);
 	}
-	
+
 	@PostMapping
-	public User postUser(@RequestBody @Validated User user ) {
+	public User postUser(@RequestBody @Validated User user) {
 		return userService.saveUser(user);
 	}
+
 	@DeleteMapping("{id}")
 	public ResponseEntity<?> delUser(@PathVariable Long id) {
-		 userService.delUser(id);
-		 return ResponseEntity.noContent().build();
+		userService.delUser(id);
+		return ResponseEntity.noContent().build();
 	}
+
 	@PutMapping("{id}")
-	public User putUser(@PathVariable Long id, @RequestBody User user ) {
-		 
-		return userService.putUser(id,user);
+	public User putUser(@PathVariable Long id, @RequestBody User user) {
+
+		return userService.putUser(id, user);
 	}
 }

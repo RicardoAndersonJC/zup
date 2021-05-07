@@ -7,16 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ricardo.anderson.zupblog.entity.Address;
+import com.ricardo.anderson.zupblog.entity.User;
 import com.ricardo.anderson.zupblog.repository.AddressRepository;
 
 @Service
 public class AddressService {
 	public AddressRepository AddressRepository;
+	public UserService userService;
 
 	@Autowired
-	public AddressService(AddressRepository addressRepository) {
+	public AddressService(AddressRepository addressRepository , UserService userService) {
 		super();
 		this.AddressRepository = addressRepository;
+		this.userService = userService; 
 	}
 
 	public List<Address> findAll() {
@@ -28,6 +31,8 @@ public class AddressService {
 	}
 
 	public Address saveAddress(Address address) {
+		User user = userService.findById(address.getUser().getId());
+		address.setUser(user);
 		return AddressRepository.save(address);
 	}
 
