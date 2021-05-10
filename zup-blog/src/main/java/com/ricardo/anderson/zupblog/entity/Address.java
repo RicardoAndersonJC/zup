@@ -17,19 +17,19 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String street;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String number;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String complement;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String district;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String city;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String state;
-	@Column(nullable = false) @NotNull
+	@Column(nullable = false) 
 	private String zipCode;
 	
 	@ManyToOne
@@ -47,6 +47,30 @@ public class Address {
 
 	public Address() {
 		super();
+	}
+
+	
+	public Address(Long id, String street, String number, String complement, String district, String city, String state,
+			String zipCode, @NotNull User user) {
+		super();
+		this.id = id;
+		this.street = street;
+		this.number = number;
+		this.complement = complement;
+		this.district = district;
+		this.city = city;
+		this.state = state;
+		this.zipCode = zipCode;
+		this.user = user;
+	}
+	
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getStreet() {
